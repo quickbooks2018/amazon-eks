@@ -1,0 +1,21 @@
+terraform apply -target module.vpc -auto-approve
+
+terraform apply -auto-approve
+
+
+
+### Backend ###
+# S3
+###############
+
+# Create S3 Bucket with Versioning enabled
+
+# aws s3api create-bucket --bucket arbisofts-terraform --region us-east-1
+
+# aws s3api put-bucket-versioning --bucket arbisofts-terraform --versioning-configuration Status=Enabled
+
+
+
+
+
+
