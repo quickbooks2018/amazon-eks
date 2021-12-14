@@ -31,9 +31,6 @@ terraform {
 #######
 # Vpc
 #######
-# https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
-# https://karpenter.sh/docs/getting-started-with-terraform/
-# Karpenter ---> https://karpenter.sh/docs/getting-started/
 
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
