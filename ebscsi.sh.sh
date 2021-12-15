@@ -1,7 +1,7 @@
 #!/bin/bash
 #Purpose: Setup EBS CSI Driver
 
-AWS_ACCOUNT="656935357701"          # Update This
+AWS_ACCOUNT="974832221000"          # Update This
 
 curl -o Amazon_EBS_CSI_Driver.json https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/v0.9.0/docs/example-iam-policy.json
 aws iam create-policy --policy-name Amazon_EBS_CSI_Driver --policy-document file://Amazon_EBS_CSI_Driver.json
@@ -19,12 +19,5 @@ helm upgrade -install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver \
     --set controller.serviceAccount.create=true \
     --set controller.serviceAccount.name=ebs-csi-controller-sa
 kubectl get all -A
-
-######################################
-# Aws-Secret-Manager Secret CSI Driver
-######################################
-cd secret-manager
-kubectl apply -f secrets-store-csi-driver
-kubectl apply -f aws-provider-installer
 
 # End

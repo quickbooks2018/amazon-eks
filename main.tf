@@ -21,8 +21,8 @@ terraform {
 
 terraform {
   backend "s3" {
-    bucket = "arbisofts-terraform"
-    key    = "arbisoft-dev.tfstate"
+    bucket = "cloudgeeks-terraform"
+    key    = "cloudgeeks-dev.tfstate"
     region = "us-east-1"
 
   }
@@ -93,10 +93,23 @@ resource "null_resource" "eks-alb-ingress-controller" {
 ################################
 # EKS EBS/SecretStore CSI Driver
 ################################
-resource "null_resource" "ebscsi-secretcsi-controllers" {
+resource "null_resource" "ebscsi-controllers" {
   provisioner "local-exec" {
     interpreter = ["/bin/bash", "-c"]
-    command     = "bash csi-drivers.sh"
+    command     = "bash ebscsi.sh"
   }
   depends_on = [null_resource.eks]
 }
+
+
+########################
+# EKS SecretStore Driver
+########################
+resource "null_resource" "secretmanager-controllers" {
+  provisioner "local-exec" {
+    interpreter = ["/bin/bash", "-c"]
+    command     = "bash secretmanager.sh"
+  }
+  depends_on = [null_resource.eks]
+}
+
