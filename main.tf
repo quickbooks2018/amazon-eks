@@ -90,9 +90,9 @@ resource "null_resource" "eks-alb-ingress-controller" {
   depends_on = [null_resource.eks]
 }
 
-################################
-# EKS EBS/SecretStore CSI Driver
-################################
+####################
+# EKS EBS CSI Driver
+####################
 resource "null_resource" "ebscsi-controllers" {
   provisioner "local-exec" {
     interpreter = ["/bin/bash", "-c"]
