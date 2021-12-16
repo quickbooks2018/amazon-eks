@@ -53,4 +53,8 @@ eksctl create cluster \
   --asg-access \
   --verbose 3
 
+
+# OIDC
+eksctl utils associate-iam-oidc-provider --cluster "$EKS_CLUSTER_NAME" --approve --region "$REGION"
+
 # END
