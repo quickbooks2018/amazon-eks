@@ -21,8 +21,8 @@ terraform {
 
 terraform {
   backend "s3" {
-    bucket = "cloudgeeks-terraform"
-    key    = "cloudgeeks-dev.tfstate"
+    bucket = "arbisoft-terraform"
+    key    = "arbisoft-dev.tfstate"
     region = "us-east-1"
 
   }
@@ -36,8 +36,8 @@ module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = var.EKS_CLUSTER_NAME
-  cidr = "10.11.0.0/16"
 
+  cidr = "10.11.0.0/16"
   azs              = ["us-east-1a", "us-east-1b", "us-east-1c"]
   private_subnets  = ["10.11.16.0/20", "10.11.32.0/20", "10.11.48.0/20"]
   public_subnets   = ["10.11.64.0/20", "10.11.80.0/20", "10.11.96.0/20"]
@@ -112,4 +112,17 @@ resource "null_resource" "secretmanager-controllers" {
   }
   depends_on = [null_resource.eks]
 }
+
+##################################
+# EKS ClusterAutoScaler Controller
+###################################
+resource "null_resource" "cluster-autoscaler" {
+  provisioner "local-exec" {
+    interpreter = ["/bin/bash", "-c"]
+    command     = "source ./cluster-autoscaler/cluster-autoscaler.sh"
+  }
+  depends_on = [null_resource.eks]
+}
+
+
 
