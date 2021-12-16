@@ -5,5 +5,3 @@
 # https://github.com/kubernetes/autoscaler/releases
 
 # https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
-
-# https://github.com/kubernetes/autoscaler/releases
