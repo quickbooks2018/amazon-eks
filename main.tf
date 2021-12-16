@@ -21,8 +21,8 @@ terraform {
 
 terraform {
   backend "s3" {
-    bucket = "arbisoft-terraform"
-    key    = "arbisoft-dev.tfstate"
+    bucket = "cloudgeeks-terraform"
+    key    = "cloudgeeks-dev.tfstate"
     region = "us-east-1"
 
   }
