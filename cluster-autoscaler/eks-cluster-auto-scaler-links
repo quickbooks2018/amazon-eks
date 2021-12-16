@@ -1,0 +1,9 @@
+# https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html
+
+# https://github.com/kubernetes/autoscaler
+
+# https://github.com/kubernetes/autoscaler/releases
+
+# https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+
+# https://github.com/kubernetes/autoscaler/releases

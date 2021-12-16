@@ -1,0 +1,37 @@
+########################
+# kubernetes deployments
+#########################
+kubectl create deployment my-first-deployment --image=quickbooks2018/green:latest
+
+####################
+# Scale Deployments
+####################
+kubectl scale --replicas=30 deployment.apps/my-first-deployment
+
+###########################
+# Scale Down the Deployment
+############################
+kubectl scale --replicas=2 deployment/my-first-deployment
+
+################################
+# Expose Deployment as a Service
+#################################
+kubectl expose deployment my-first-deployment --type=NodePort --port=80 --target-port=80 --name=my-first-deployment-service
+
+###################
+# Delete Deployment
+####################
+kubectl delete deployment.apps/my-first-deployment
+
+
+
+
+AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+POLICY="EksClusterAutoScalerPolicy"
+SERVICENAME="cluster-autoscaler"
+CF_TEMPLATE_FOR_AUTOSCALER="eksctl-"${EKS_CLUSTER_NAME}"-addon-iamserviceaccount-"${NAMESPACE}"-"${SERVICENAME}""
+EKS_CLUSTER_AUTOSCALER=$(aws cloudformation  describe-stacks --stack-name "${CF_TEMPLATE_FOR_AUTOSCALER}" --region "$REGION" --query "Stacks[0].Outputs[?OutputKey=='Role1'].OutputValue" --output text)
+eksctl utils associate-iam-oidc-provider --cluster="$EKS_CLUSTER_NAME" --approve --region "$REGION"
+## EksClusterAutoScalerPolicy
+aws iam create-policy --policy-name "$POLICY" --policy-document file://EksClusterAutoScalerPolicy.json
+eksctl create iamserviceaccount --name "$SERVICENAME" --namespace "$NAMESPACE" --cluster "${EKS_CLUSTER_NAME}" --attach-policy-arn arn:aws:iam::"${AWS_ACCOUNT_ID}":policy/"$POLICY" --approve --override-existing-serviceaccounts
