@@ -14,6 +14,16 @@ terraform apply -auto-approve
 
 # aws s3api put-bucket-versioning --bucket cloudgeeks-terraform --versioning-configuration Status=Enabled
 
+######################
+# Deployment & Scaling
+######################
+
+kubectl create deployment cloudgeeks-deployment --image=quickbooks2018/green
+
+kubectl scale --replicas=20 deployment/cloudgeeks-deployment
+
+
+
 
 
 
